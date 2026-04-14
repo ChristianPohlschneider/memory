@@ -1,0 +1,9 @@
+@use '../abstract/mixin' as mx;
+
+$columns: 6;
+
+.field {
+    display: grid;
+    grid-template-columns: repeat($columns, 1fr);
+    gap: 1rem;
+}

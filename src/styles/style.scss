@@ -1,41 +1,15 @@
+@use '../styles/base/typography';
+@use '../styles/abstract/mixin' as mx;
+@use '../styles/components/style';
+
+
+$bg-vibes: #303131;
+$bg-gaming: #294F60;
+
+
 body {
     height: 100vh;
-}
 
-.card {
-    height: 120px;
-    width: 105px;
-    padding: 0;
-    border: none;
- 
-    &__inner {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        transform-style: preserve-3d;
-        transition: all 300ms ease-in-out;
-    }
-
-    &__face {
-        position: absolute;
-        inset: 0;
-        background-color: black;
-        backface-visibility: hidden;
-
-        &--back {
-            transform: rotateY(180deg);
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-    }
-
-    &.is-flipped .card__inner {
-        transform: rotateY(180deg);
-
-    }
+    @include mx.flex-center(column);
+    @include mx.theme($bg-gaming);
 }

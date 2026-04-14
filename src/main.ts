@@ -17,7 +17,13 @@ function renderCards() {
 
     fieldRef.innerHTML = ""; // optional: vorher leeren
 
-    gameTheme.forEach((theme: any) => {
+        // 🔁 Karten verdoppeln
+    const cards = [...gameTheme, ...gameTheme];
+
+    // 🔀 Karten mischen
+    shuffleArray(cards);
+
+    cards.forEach((theme: any) => {
         const card = document.createElement("button");
         card.className = `card`;
 
@@ -30,6 +36,13 @@ function renderCards() {
 // public/assets/img/games-theme/card-1.png
         fieldRef.appendChild(card);
     });
+}
+
+function shuffleArray(array: any[]) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
 }
 
 function setupClick() {

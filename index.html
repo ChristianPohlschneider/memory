@@ -7,7 +7,7 @@
     <title>Memory App</title>
 </head>
 
-<body>
+<body class="m-s0 p-s0">
     <!-- Projekt implementieren:
     npm init -y (initialisierung, alles auf yes)
     npm install -D vite typescript (installation vite und typescript)
@@ -56,17 +56,22 @@
 
     ordner in src erstellen: styles/styles.scss
     -->
-    <h1 id="h1_hallo">Memory</h1>
-
-    <section id="field">
-        <button class="card">
-            <!-- <div class="card__inner">
+    <div class="content">
+        <header class="header">
+            <div>Player</div>
+            <div>Current player:</div>
+            <div>Exit game</div>
+        </header>
+        <section id="field" class="field">
+            <button class="card">
+                <!-- <div class="card__inner">
                 <div class="card__face"></div>
                 <div class="card__face card__face--back"
                  style="background-image: url('/assets/img/games-theme/${theme}.png')"></div>
             </div> -->
-        </button>
-    </section>
+            </button>
+        </section>
+    </div>
 
     <script type="module" src="/src/main.ts"></script>
 </body>

@@ -1,0 +1,49 @@
+@use '../abstract/mixin' as mx;
+
+
+.card {
+    height: 120px;
+    width: 105px;
+    padding: 0;
+    border: none;
+    border-radius: 12px;
+    @include mx.respond(zero, s){
+        height: 100px;
+    };
+
+
+
+    &__inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        transition: all 300ms ease-in-out;
+        border-radius: 12px;
+        background-color: red;
+
+        @include mx.flex-center();
+    }
+
+    &__face {
+        position: absolute;
+        inset: 0;
+        border-radius: 12px;
+        // background-color: red;
+        backface-visibility: hidden;
+
+        &--back {
+            transform: rotateY(180deg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #F6F1F3;
+
+            @include mx.fade-in(0.256s);
+        }
+    }
+
+    &.is-flipped .card__inner {
+        transform: rotateY(180deg);
+
+    }
+}

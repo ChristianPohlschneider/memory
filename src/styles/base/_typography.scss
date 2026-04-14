@@ -1,0 +1,38 @@
+$sizes:(
+    s: 8px,
+    sm:16px,
+    l:24px,
+    xl:32px,
+    xxl:48px
+);
+
+$spacings: (
+    s0: 0px,
+    s8: 8px,
+    s16: 16px,
+    s24: 24px,
+    s32: 32px,
+    s40: 40px,
+    s48: 48px,
+    s50: 50px,
+    s100: 100px,
+    s200: 200px
+);
+
+@each$name, $size in $sizes {
+    .text-#{$name} {
+        font-size: $size;
+    }
+}
+
+@each$name, $space in $spacings {
+    .m-#{$name} {
+        margin: $space;
+    }
+}
+
+@each$name, $space in $spacings {
+    .p-#{$name} {
+        padding: $space;
+    }
+}

@@ -1,0 +1,12 @@
+@use '../abstract/mixin' as mx;
+@use '../abstract/function' as fct;
+
+.header {
+    height: 100px;
+    font-size: 32px;
+    @include mx.flex-center(row);
+    justify-content: space-between;
+    @include mx.respond(zero, s){
+        font-size: fct.px-to-rem(24);
+    };
+}
