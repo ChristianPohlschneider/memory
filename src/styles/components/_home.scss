@@ -1,0 +1,20 @@
+@use '../abstract/mixin' as mx;
+
+.home {
+    @include mx.flex-center();
+
+}
+
+.playTime {
+    font-size: 48px;
+}
+
+.readyToPlay {
+    font-size: 140px;
+}
+
+.playButton {
+    height: 100px;
+    width: 250px;
+    background-color: #F0EA6E;
+}

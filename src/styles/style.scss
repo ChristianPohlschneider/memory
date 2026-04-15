@@ -3,13 +3,21 @@
 @use '../styles/components/style';
 
 
-$bg-vibes: #303131;
-$bg-gaming: #294F60;
+
 
 
 body {
     height: 100vh;
-
+    background-color: var(--background-color, white);
+    color: white;
     @include mx.flex-center(column);
-    @include mx.theme($bg-gaming);
+
+    //für die weiteren themes:
+    // border-radius: var(--border-radius, 0px);
+    // border-color: var(--border-color, none);
+    // font-size: var(--font-size, 16px);
+
+    // background-image: url(--card-back);
+    // background-color: var(--button-color, "#ED1B7614");
+
 }

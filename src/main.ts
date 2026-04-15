@@ -1,13 +1,28 @@
 // document.getElementById("h1_hallo")!.innerText = "Memory App";
 
 import './styles/style.scss';
-import { gameTheme } from './db/games.theme';
+import { gameTheme, themes } from './db/games.theme';
 
 init();
 
 function init() {
+    getTheme("games-theme");
     renderCards();
     setupClick();
+}
+
+function getTheme(themeName: string = "vibes-theme") {
+    const theme = themes.find(t => t.theme === themeName);
+
+    if (!theme) return;
+
+    document.documentElement.style.setProperty("--background-color", theme.background);
+    document.documentElement.style.setProperty("--border-radius", theme.borderRadius);
+    document.documentElement.style.setProperty("--border-color", theme.borderColor);
+    document.documentElement.style.setProperty("--font-size", theme.fontSize);
+    document.documentElement.style.setProperty("--card-back", theme.cardBack);
+    document.documentElement.style.setProperty("--button-color", theme.buttonColor);
+    
 }
 
 function renderCards() {
@@ -17,7 +32,7 @@ function renderCards() {
 
     fieldRef.innerHTML = ""; // optional: vorher leeren
 
-        // 🔁 Karten verdoppeln
+    // 🔁 Karten verdoppeln
     const cards = [...gameTheme, ...gameTheme];
 
     // 🔀 Karten mischen
@@ -33,7 +48,7 @@ function renderCards() {
                 <div class="card__face card__face--back" style="background-image: url('./assets/img/games-theme/${theme}.png')"></div>
             </div>
         `;
-// public/assets/img/games-theme/card-1.png
+        // public/assets/img/games-theme/card-1.png
         fieldRef.appendChild(card);
     });
 }

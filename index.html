@@ -56,21 +56,11 @@
 
     ordner in src erstellen: styles/styles.scss
     -->
-    <div class="content">
-        <header class="header">
-            <div>Player</div>
-            <div>Current player:</div>
-            <div>Exit game</div>
-        </header>
-        <section id="field" class="field">
-            <button class="card">
-                <!-- <div class="card__inner">
-                <div class="card__face"></div>
-                <div class="card__face card__face--back"
-                 style="background-image: url('/assets/img/games-theme/${theme}.png')"></div>
-            </div> -->
-            </button>
-        </section>
+
+    <div class="home">
+        <div><p class="playTime m-s0">It´s play time</p></div>
+        <div><p class="readyToPlay m-s0">Ready to play?</p></div>
+        <div><button class="playButton" onclick="window.location.href='game.html'">Play</button></div>
     </div>
 
     <script type="module" src="/src/main.ts"></script>

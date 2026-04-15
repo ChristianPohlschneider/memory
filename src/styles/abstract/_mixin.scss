@@ -6,9 +6,9 @@
     flex-direction: $direction;
 }
 
-@mixin theme ($background-color: #294F60 ) {
-    background-color: $background-color;
-}
+// @mixin theme ($background-color: #303131 ) {
+//     background-color: $background-color;
+// }
 
 $breakpoints: (
     zero: 0px,
