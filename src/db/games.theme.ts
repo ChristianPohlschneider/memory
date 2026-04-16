@@ -40,7 +40,7 @@ export const vibesTheme:string[] = [
 "card-18",
 ]
 
-type Theme = {
+export type Theme = {
   theme: string;
   background: string;
   borderRadius: string;

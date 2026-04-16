@@ -1,56 +1,57 @@
 // document.getElementById("h1_hallo")!.innerText = "Memory App";
 
 import './styles/style.scss';
-import { gameTheme, themes } from './db/games.theme';
+import { gameTheme, themes, Theme } from './db/games.theme';
+
+const fieldRef = document.getElementById("field");
 
 init();
 
 function init() {
-    getTheme("games-theme");
-    renderCards();
+    getTheme("games-theme", 18);   
     setupClick();
 }
 
-function getTheme(themeName: string = "vibes-theme") {
+function getTheme(themeName: string = "vibes-theme", cardAmount: number = 18) {
     const theme = themes.find(t => t.theme === themeName);
-
     if (!theme) return;
-
     document.documentElement.style.setProperty("--background-color", theme.background);
     document.documentElement.style.setProperty("--border-radius", theme.borderRadius);
     document.documentElement.style.setProperty("--border-color", theme.borderColor);
     document.documentElement.style.setProperty("--font-size", theme.fontSize);
     document.documentElement.style.setProperty("--card-back", theme.cardBack);
     document.documentElement.style.setProperty("--button-color", theme.buttonColor);
-    
+    renderCards(theme, cardAmount);
 }
 
-function renderCards() {
-    const fieldRef = document.getElementById("field");
+function createCardPairs(cards: string[], amount: number): string[] {
+    return cards.slice(0, amount).flatMap(c => [c, c]);
+}
 
-    if (!fieldRef) return;
-
-    fieldRef.innerHTML = ""; // optional: vorher leeren
-
-    // 🔁 Karten verdoppeln
-    const cards = [...gameTheme, ...gameTheme];
-
-    // 🔀 Karten mischen
-    shuffleArray(cards);
-
-    cards.forEach((theme: any) => {
-        const card = document.createElement("button");
-        card.className = `card`;
-
-        card.innerHTML = `
-            <div class="card__inner">
-                <div class="card__face"></div>
-                <div class="card__face card__face--back" style="background-image: url('./assets/img/games-theme/${theme}.png')"></div>
+function createCardElement(theme: Theme, card: string): HTMLElement {
+    const el = document.createElement("button");
+    el.className = "card";
+    el.innerHTML = `
+        <div class="card__inner">
+            <div class="card__face"></div>
+            <div class="card__face card__face--back"
+                 style="background-image: url('./assets/img/${theme.theme}/${card}.png')">
             </div>
-        `;
-        // public/assets/img/games-theme/card-1.png
-        fieldRef.appendChild(card);
-    });
+        </div>
+    `;
+    return el;
+}
+
+function renderToField(elements: HTMLElement[]) {
+    if (!fieldRef) return;
+    fieldRef.innerHTML = "";
+    elements.forEach(el => fieldRef.appendChild(el));
+}
+
+function renderCards(theme: Theme, cardAmount: number = 18) {
+    const cards = createCardPairs(theme.cards, cardAmount);
+    shuffleArray(cards);
+    renderToField(cards.map(c => createCardElement(theme, c)));
 }
 
 function shuffleArray(array: any[]) {
@@ -62,11 +63,9 @@ function shuffleArray(array: any[]) {
 
 function setupClick() {
     const fieldRef = document.getElementById("field");
-
     if (fieldRef) {
         fieldRef.addEventListener("click", e => {
             const card = (e.target as HTMLElement).closest(".card") as HTMLButtonElement;
-
             if (card) {
                 card.classList.toggle("is-flipped");
             }
