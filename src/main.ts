@@ -8,7 +8,7 @@ const fieldRef = document.getElementById("field");
 init();
 
 function init() {
-    getTheme("games-theme", 18);   
+    getTheme("vibes-theme", 18);   
     setupClick();
 }
 

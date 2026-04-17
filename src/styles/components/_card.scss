@@ -2,14 +2,17 @@
 
 
 .card {
-    height: 120px;
-    width: 105px;
+    height: 80px;
+    width: 80px;
     padding: 0;
     border: none;
     border-radius: 12px;
-    @include mx.respond(zero, s){
+
+    @include mx.respond(zero, s) {
         height: 100px;
-    };
+    }
+
+    ;
 
 
 
@@ -36,6 +39,9 @@
             transform: rotateY(180deg);
             background-position: center;
             background-repeat: no-repeat;
+            background-size: contain;
+            background-origin: content-box;
+            padding: 5px;
             background-color: #F6F1F3;
 
             @include mx.fade-in(0.256s);

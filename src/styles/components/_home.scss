@@ -1,20 +1,51 @@
 @use '../abstract/mixin' as mx;
 
+.controller-large {
+    position: absolute;
+    left: 0px;
+    bottom: 10px;
+}
+
 .home {
     @include mx.flex-center();
+    padding-left: 100px;
+    padding-right: 100px;
+}
 
+.playTimeDiv {
+    width: 100%;
+    align-items: flex-start;
 }
 
 .playTime {
+    width: 100%;
     font-size: 48px;
 }
 
 .readyToPlay {
     font-size: 140px;
+    padding: 40px 0;
+}
+
+.controller-small {
+    height: 32px;
+    width: 44px;
+}
+
+.arrow {
+    height: 16px;
+    width: 33px;
 }
 
 .playButton {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-weight: 700;
     height: 100px;
     width: 250px;
     background-color: #F0EA6E;
+    gap: 20px;
+    cursor: pointer;
 }

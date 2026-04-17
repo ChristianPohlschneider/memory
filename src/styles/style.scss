@@ -2,15 +2,31 @@
 @use '../styles/abstract/mixin' as mx;
 @use '../styles/components/style';
 
+@font-face {
+  font-family: 'Red Rose';
+  src: url('/assets/fonts/redrose-variablefont_wght-webfont.woff2') format('woff2');
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-
+html {
+  font-family: 'Red Rose', serif;
+  height: 100%;
+}
 
 body {
-    height: 100vh;
+    height: 100%;
     background-color: var(--background-color, white);
     color: white;
     @include mx.flex-center(column);
+    overflow-x: hidden;
 
     //für die weiteren themes:
     // border-radius: var(--border-radius, 0px);
@@ -20,4 +36,12 @@ body {
     // background-image: url(--card-back);
     // background-color: var(--button-color, "#ED1B7614");
 
+}
+
+h1 {
+  font-weight: 700;
+}
+
+p {
+  font-weight: 350; /* geht dank Variable Font */
 }

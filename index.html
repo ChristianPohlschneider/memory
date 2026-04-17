@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memory App</title>
+    <link rel="preload" href="/assets/fonts/redrose-variablefont_wght-webfont.woff2" as="font" type="font/woff2"
+        crossorigin>
 </head>
 
 <body class="m-s0 p-s0">
@@ -56,11 +58,15 @@
 
     ordner in src erstellen: styles/styles.scss
     -->
-
+    <img src="/assets/img/index/stadia_controller large.png" alt="large controller" class="controller-large">
     <div class="home">
-        <div><p class="playTime m-s0">It´s play time</p></div>
-        <div><p class="readyToPlay m-s0">Ready to play?</p></div>
-        <div><button class="playButton" onclick="window.location.href='game.html'">Play</button></div>
+        <div class="playTimeDiv">
+            <p class="playTime m-s0">It´s play time.</p>
+        </div>
+        <div>
+            <p class="readyToPlay m-s0">Ready to play?</p>
+        </div>
+        <div><button class="playButton" onclick="window.location.href='game.html'"><img src="/assets/img/index/stadia_controller.png" alt="controller" class="controller-small"><strong>Play</strong><img src="/assets/img/index/Arrow 1.png" alt="arrow" class="arrow "></button></div>
     </div>
 
     <script type="module" src="/src/main.ts"></script>
