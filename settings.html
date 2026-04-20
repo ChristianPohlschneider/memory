@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="preload" href="/assets/fonts/redrose-variablefont_wght-webfont.ttf" as="font" type="font/ttf"
+        crossorigin>
+</head>
+
+<body class="m-s0 p-s0">
+
+    <div class="settings">
+        <p>Settings</p>
+        <div class="settings__lower">
+            <section class="settings__left">
+                <div>
+                    <p>Game themes</p>
+                    <label class="custom-radio">
+                        <input type="radio" name="theme" value="1">
+                        <span class="radio-circle"></span>
+                        Code vibes theme
+                    </label>
+
+                    <label class="custom-radio">
+                        <input type="radio" name="theme" value="2">
+                        <span class="radio-circle"></span>
+                        Gaming theme
+                    </label>
+                </div>
+                <div>
+                    <p>Choose player</p>
+                    <label class="custom-radio">
+                        <input type="radio" name="player" value="1">
+                        <span class="radio-circle"></span>
+                        Blue
+                    </label>
+
+                    <label class="custom-radio">
+                        <input type="radio" name="player" value="2">
+                        <span class="radio-circle"></span>
+                        Orange
+                    </label>
+                </div>
+                <div>
+                    <p>Board size</p>
+                    <label class="custom-radio">
+                        <input type="radio" name="size" value="1">
+                        <span class="radio-circle"></span>
+                        16 cards
+                    </label>
+
+                    <label class="custom-radio">
+                        <input type="radio" name="size" value="2">
+                        <span class="radio-circle"></span>
+                        24 cards
+                    </label>
+
+                    <label class="custom-radio">
+                        <input type="radio" name="size" value="3">
+                        <span class="radio-circle"></span>
+                        36 cards
+                    </label>
+                </div>
+            </section>
+            <section class="settings__right">
+                <img src="/assets/img/games-theme/preview.png" alt="game preview">
+                <div class="settings__board">
+                    <div>Game Theme</div>
+                    <div>Player</div>
+                    <div>Board size</div>
+                    <button class="startButton" onclick="window.location.href='game.html'"><img src="/assets/img/settings/smart_display.svg" alt="startButton__display" class="startButton__display"><strong>Start</strong></button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

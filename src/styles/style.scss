@@ -4,9 +4,9 @@
 
 @font-face {
   font-family: 'Red Rose';
-  src: url('/assets/fonts/redrose-variablefont_wght-webfont.woff2') format('woff2');
-  font-weight: 300 700;
-  font-style: normal;
+  src: url('/assets/fonts/redrose-variablefont_wght-webfont.ttf') format('truetype');
+  font-optical-sizing: auto;
+  font-weight: 300 - 700;
   font-display: swap;
 }
 
@@ -43,5 +43,5 @@ h1 {
 }
 
 p {
-  font-weight: 350; /* geht dank Variable Font */
+  font-weight: 400; /* geht dank Variable Font */
 }
