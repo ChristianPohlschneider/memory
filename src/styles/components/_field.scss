@@ -2,9 +2,21 @@
 
 $columns: 6;
 
+.content {
+    display: flex;
+    width: calc(100% - 200px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
 .field {
-    display: grid;
-    grid-template-columns: repeat($columns, 1fr);
+    // display: grid;
+    // grid-template-columns: repeat($columns, 1fr);
+    display: flex;
+    width: 545px;
+    height: 500px;
     gap: 10px;
     padding-bottom: 54px;
+    flex-wrap: wrap;
 }

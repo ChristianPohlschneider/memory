@@ -9,10 +9,8 @@
     border-radius: 12px;
 
     @include mx.respond(zero, s) {
-        height: 100px;
+        // height: 100px;
     }
-
-    ;
 
 
 

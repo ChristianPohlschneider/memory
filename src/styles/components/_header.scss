@@ -2,12 +2,59 @@
 @use '../abstract/function' as fct;
 
 .header {
+    display: flex;
     width: 100%;
-    padding: 0px 100px 54px 100px;
+    height: 62px;
+    background-color: var(--background-color, white);
+    margin: 50px 100px;
     font-size: 32px;
-    @include mx.flex-center(row);
     justify-content: space-between;
-    @include mx.respond(zero, s){
+    align-items: center;
+
+    @include mx.respond(zero, s) {
         font-size: fct.px-to-rem(24);
-    };
+    }
+
+    &__player {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        padding: 0 20px;
+        background-color: #86E9D633;
+        gap: 20px;
+        // border: solid 1px #4DD5BC;
+    }
+
+    &__player--blue {
+        color: #2BB1FF;
+    }
+
+    &__player--orange {
+        color: #F58E39;
+    }
+
+    &__currentPlayer {
+        
+    }
+}
+
+.header__exitButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Red Rose', serif;
+    color: white;
+    font-size: 24px;
+    font-weight: 700;
+    height: 100%;
+    width: 200px;
+    background-color: #86E9D633;
+    gap: 10px;
+    border: solid 1px #4DD5BC;
+    cursor: pointer;
+}
+
+.header__exitButtonImg {
+    height: 22px;
+    width: 28px;
 }
