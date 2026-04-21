@@ -1,8 +1,8 @@
 @use '../abstract/mixin' as mx;
 
-body {
-    // background-color: white !important;
-    // color: #303131 !important;
+body.setting {
+    background-color: white;
+    color: #303131;
 }
 
 .settings {
@@ -11,12 +11,13 @@ body {
     @include mx.flex-center(column);
     justify-content: flex-start;
     align-items: flex-start;
-    padding: 130px 150px 0px 150px;
+    padding: 0px 150px 0px 150px;
 
     >p {
         display: flex;
         font-size: 54px;
         font-weight: 700;
+        margin-bottom: 0;
     }
 
     &__lower {
@@ -40,12 +41,37 @@ body {
 
 }
 
+.titleUnderline {
+    position: absolute;
+    top: 110px;
+    left: 125px;
+}
+
+.settingTitle {
+    @include mx.flex-center(row);
+    justify-content: flex-start;
+    font-size: 24px;
+    font-weight: bold;
+    gap: 10px;
+}
+
+.optionLine {
+    height: 100%;
+    width: 50px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
 .custom-radio {
     display: flex;
     align-items: center;
     gap: 10px;
     cursor: pointer;
     font-size: 18px;
+}
+
+.custom-radio:hover {
+    font-weight: 700;
 }
 
 .custom-radio input {
@@ -78,20 +104,35 @@ body {
     font-weight: 700;
 }
 
+.custom-radio:has(input:checked) .optionLine {
+    opacity: 1;
+}
+
+.custom-radio:hover .optionLine {
+    opacity: 1;
+}
+
+.settings__board {
+    background-color: #F6F6F6;
+    padding: 14px 20px 14px 20px;
+    font-size: 18px;
+}
+
 .startButton {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 40px;
+    font-family: 'Red Rose', serif;
+    font-size: 18px;
     font-weight: 700;
-    height: 100px;
-    width: 250px;
+    height: 53px;
+    width: 126px;
     background-color: #F0EA6E;
-    gap: 20px;
+    gap: 10px;
     cursor: pointer;
 
     &__display {
-        height: 32px;
-        width: 44px;
+        height: 22px;
+        width: 28px;
     }
 }
