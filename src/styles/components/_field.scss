@@ -1,6 +1,6 @@
 @use '../abstract/mixin' as mx;
 
-$columns: 6;
+$--columns: 6;
 
 .content {
     display: flex;
@@ -12,7 +12,7 @@ $columns: 6;
 
 .field {
     // display: grid;
-    // grid-template-columns: repeat($columns, 1fr);
+    // grid-template-columns: repeat($--columns, 1fr);
     display: flex;
     width: 545px;
     height: 500px;

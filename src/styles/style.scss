@@ -10,6 +10,8 @@
   font-display: swap;
 }
 
+$theme: "vibes-theme";
+
 *,
 *::before,
 *::after {
@@ -22,30 +24,33 @@ html {
 }
 
 body {
-    height: 100%;
-    background-color: var(--background-color, white);
-    color: white;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    overflow-x: hidden;
+  height: 100%;
+  background-color: var(--background-color, white);
+  color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  overflow-x: hidden;
 
-    //für die weiteren themes:
-    // border-radius: var(--border-radius, 0px);
-    // border-color: var(--border-color, none);
-    // font-size: var(--font-size, 16px);
+  //für die weiteren themes:
+  // border-radius: var(--border-radius, 0px);
+  // border-color: var(--border-color, none);
+  // font-size: var(--font-size, 16px);
 
-    // background-image: url(--card-back);
-    // background-color: var(--button-color, "#ED1B7614");
+  // background-image: url(--card-back);
+  // background-color: var(--button-color, "#ED1B7614");
 
 }
 
-
+body.index {
+  justify-content: center;
+}
 
 h1 {
   font-weight: 700;
 }
 
 p {
-  font-weight: 400; /* geht dank Variable Font */
+  font-weight: 400;
+  /* geht dank Variable Font */
 }

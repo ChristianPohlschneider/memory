@@ -8,9 +8,43 @@ const fieldRef = document.getElementById("field");
 init();
 
 function init() {
-    getTheme("vibes-theme", 18);   
+    // getTheme("vibes-theme", 18);
     setupClick();
 }
+
+const startBtn = document.getElementById("startBtn");
+
+startBtn?.addEventListener("click", startGame);
+
+function startGame() {
+    const selectedTheme = document.querySelector('input[name="theme"]:checked');
+    if (!(selectedTheme instanceof HTMLInputElement)) return;
+    const themeName = selectedTheme.value;
+    const selectedCards = document.querySelector('input[name="size"]:checked');
+    if (!(selectedCards instanceof HTMLInputElement)) return;
+    const cardAmount = Number(selectedCards.value);
+    
+ localStorage.setItem("themeName", themeName);
+  localStorage.setItem("cardAmount", cardAmount.toString());
+
+    window.location.href = "game.html";
+    getTheme(themeName, cardAmount);
+}
+
+function initGame() {
+        const themeName = localStorage.getItem("themeName");
+    const cardAmount = Number(localStorage.getItem("cardAmount"));
+
+    if (!themeName || !cardAmount) {
+        console.error("Missing game settings");
+        window.location.href = "index.html"; // fallback
+        return;
+    }
+
+    getTheme(themeName, cardAmount);
+}
+
+document.addEventListener("DOMContentLoaded", initGame);
 
 function getTheme(themeName: string = "vibes-theme", cardAmount: number = 18) {
     const theme = themes.find(t => t.theme === themeName);
@@ -71,4 +105,8 @@ function setupClick() {
             }
         });
     }
+}
+
+function loadThemeImg(themeName: string = "vibes-theme") {
+
 }
