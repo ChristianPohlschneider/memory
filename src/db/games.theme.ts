@@ -49,6 +49,7 @@ export type Theme = {
   fontSize: string;
   cards: string[];
   cardBack: string;
+  preview: string;
 };
 
 export const themes: Theme[] = [
@@ -61,6 +62,7 @@ export const themes: Theme[] = [
     buttonColor: "#86E9D633",
     borderColor: "#4DD5BC",
     fontSize: "26px",
+    preview: "./assets/img/vibes-theme/preview.png",
   },
   {
     theme: "games-theme",
@@ -71,6 +73,7 @@ export const themes: Theme[] = [
     buttonColor: "#ED1B7614",
     borderColor: "#E71C4F",
     fontSize: "32px",
+    preview: "./assets/img/games-theme/preview.png",
   }
 ]
 

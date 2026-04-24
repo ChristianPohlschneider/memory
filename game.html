@@ -12,15 +12,15 @@
       crossorigin>
 </head>
 
-<body class="m-s0 p-s0">
+<body class="m-s0 p-s0 game">
     <div class="content">
     <header class="header">
         <div class="header__player">
-            <div class="header__player--blue"><img src="/assets/img/header/label blue.svg" alt="blue player" class="header__playerImg">&nbsp; Blue</div>
-            <div class="header__player--orange"><img src="/assets/img/header/label orange.svg" alt="orange player" class="header__playerImg">&nbsp; Orange</div>
+            <div class="header__player--blue"><img src="/assets/img/header/label-blue.svg" alt="blue player" class="header__playerImg">&nbsp; Blue</div>
+            <div class="header__player--orange"><img src="/assets/img/header/label-orange.svg" alt="orange player" class="header__playerImg">&nbsp; Orange</div>
         </div>
-        <div class="header__currentPlayer">Current player: &nbsp;<img src="/assets/img/header/label blue.svg" alt="blue player" class=""></div>
-        <button class="header__exitButton" onclick="window.location.href='game.html'"><img src="/assets/img/header/move_item.svg" alt="quit button display" class="header__exitButtonImg"><strong>Exit game</strong></button>
+        <div class="header__currentPlayer">Current player: &nbsp;<div alt="player" class="header__currentPlayer--img"></div></div>
+        <button class="header__exitButton" onclick="window.location.href='index.html'"><img src="/assets/img/header/move_item.svg" alt="quit button display" class="header__exitButtonImg"><strong>Exit game</strong></button>
     </header>
 
         <section id="field" class="field">

@@ -34,6 +34,15 @@ body.setting {
         gap: 16px;
     }
 
+    &__preview {
+        width: 460px;
+        height: 412px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: background-image 0.2s ease, opacity 0.2s ease;
+    }
+
     &__board {
         @include mx.flex-center(row);
         gap: 16px;
@@ -62,33 +71,42 @@ body.setting {
     transition: opacity 0.2s ease;
 }
 
-.custom-radio {
+.customRadio {
     display: flex;
     align-items: center;
     gap: 10px;
     cursor: pointer;
     font-size: 18px;
+
+    &__circle {
+        width: 20px;
+        height: 20px;
+        border: 2px solid #303131;
+        border-radius: 50%;
+        display: inline-block;
+        position: relative;
+    }
 }
 
-.custom-radio:hover {
+.customRadio:hover {
     font-weight: 700;
 }
 
-.custom-radio input {
+.customRadio input {
     display: none;
 }
 
-.radio-circle {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #303131;
-    border-radius: 50%;
-    display: inline-block;
-    position: relative;
-}
+// .customRadio__circle {
+//     width: 20px;
+//     height: 20px;
+//     border: 2px solid #303131;
+//     border-radius: 50%;
+//     display: inline-block;
+//     position: relative;
+// }
 
 /* innerer Punkt beim Klick */
-.custom-radio input:checked+.radio-circle::after {
+.customRadio input:checked+.customRadio__circle::after {
     content: "";
     width: 10px;
     height: 10px;
@@ -100,15 +118,15 @@ body.setting {
     transform: translate(-50%, -50%);
 }
 
-.custom-radio:has(input:checked) {
+.customRadio:has(input:checked) {
     font-weight: 700;
 }
 
-.custom-radio:has(input:checked) .optionLine {
+.customRadio:has(input:checked) .optionLine {
     opacity: 1;
 }
 
-.custom-radio:hover .optionLine {
+.customRadio:hover .optionLine {
     opacity: 1;
 }
 

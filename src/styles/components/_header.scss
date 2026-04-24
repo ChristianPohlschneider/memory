@@ -34,7 +34,17 @@
     }
 
     &__currentPlayer {
-        
+        display: flex;
+        align-items: center;
+    }
+
+    &__currentPlayer--img {
+        height: 20px;
+        width: 24px;
+        background-image: var(--player-name);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
     }
 }
 
