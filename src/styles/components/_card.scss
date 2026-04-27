@@ -21,7 +21,9 @@
         transform-style: preserve-3d;
         transition: all 300ms ease-in-out;
         border-radius: 12px;
-        background-color: red;
+        // background-color: red;
+        background-image: var(--card-back);
+        background-position: center;
 
         @include mx.flex-center();
     }
@@ -34,7 +36,7 @@
         backface-visibility: hidden;
 
         &--back {
-            transform: rotateY(180deg);
+            // transform: rotateY(180deg);
             background-position: center;
             background-repeat: no-repeat;
             background-size: contain;

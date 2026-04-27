@@ -7,6 +7,10 @@ const fieldRef = document.getElementById("field");
 let themeName: string;
 let playerName: string;
 let cardAmount: number;
+let opponent: string;
+let firstCard: HTMLButtonElement | null = null;
+let secondCard: HTMLButtonElement | null = null;
+let lockBoard = false;
 
 init();
 
@@ -63,6 +67,12 @@ function getTheme(themeName: string = "vibes-theme", playerName: string = "blue"
     document.documentElement.style.setProperty("--button-color", theme.buttonColor);
     document.documentElement.style.setProperty("--preview-background", theme.preview);
     document.documentElement.style.setProperty("--player-name", `url("./assets/img/header/label-${playerName}.svg")`);
+    if (playerName == "blue") {
+        opponent = "orange"
+    } else {
+        opponent = "blue"
+    }
+    document.documentElement.style.setProperty("--opponent-name", `url("./assets/img/header/label-${opponent}.svg")`);
     renderCards(theme, cardAmount);
 };
 
@@ -72,12 +82,13 @@ function createCardPairs(cards: string[], amount: number): string[] {
 
 function createCardElement(theme: Theme, card: string): HTMLElement {
     const el = document.createElement("button");
-    el.className = "card";
+    el.className = "card is-flipped";
+    el.dataset.card = card;
     el.innerHTML = `
         <div class="card__inner">
             <div class="card__face"></div>
             <div class="card__face card__face--back"
-                 style="background-image: url('./assets/img/${theme.theme}/${card}.png')">
+                style="background-image: url('./assets/img/${theme.theme}/${card}.png')">
             </div>
         </div>
     `;
@@ -103,18 +114,6 @@ function shuffleArray(array: any[]) {
     }
 };
 
-function setupClick() {
-    const fieldRef = document.getElementById("field");
-    if (fieldRef) {
-        fieldRef.addEventListener("click", e => {
-            const card = (e.target as HTMLElement).closest(".card") as HTMLButtonElement;
-            if (card) {
-                card.classList.toggle("is-flipped");
-            }
-        });
-    }
-};
-
 const previewBox = document.querySelector(".settings__preview") as HTMLElement;
 const radios = document.querySelectorAll(".customRadio input") as NodeListOf<HTMLInputElement>;
 const DEFAULT_THEME = "vibes-theme";
@@ -136,9 +135,10 @@ function getActiveTheme() {
 }
 
 function applyPreview(themeName: string) {
+    const previewBox = document.querySelector(".settings__preview");
     const theme = themes.find(t => t.theme === themeName);
-    if (!theme) return;
-    previewBox.style.backgroundImage = `url("${theme.preview}")`;
+    if (!theme || !previewBox) return;
+    (previewBox as HTMLElement).style.backgroundImage = `url(${theme.preview})`;
 }
 
 radios.forEach((input) => {
@@ -148,6 +148,7 @@ radios.forEach((input) => {
 });
 
 applyPreview(DEFAULT_THEME);
+
 
 document.querySelectorAll(".customRadio").forEach((label) => {
     const input = label.querySelector("input") as HTMLInputElement;
@@ -169,7 +170,6 @@ radios.forEach((input) => {
         updateSettingsBoard();
     });
     input.addEventListener("click", () => {
-        // 🔥 wichtig: auch wenn es schon aktiv ist
         if (input.checked) {
             updateSettingsBoard();
         }
@@ -212,3 +212,49 @@ function updateSettingsBoard() {
     updateBoardSizeText();
     updateLines();
 };
+
+function setupClick() {
+    const fieldRef = document.getElementById("field");
+    if (!fieldRef) return;
+    fieldRef.addEventListener("click", e => {
+        const card = (e.target as HTMLElement).closest(".card") as HTMLButtonElement;
+        if (!card) return;
+        if (lockBoard) return;
+        if (card === firstCard) return;
+        if (card.classList.contains("matched")) return;
+        flipCard(card);
+        if (!firstCard) {
+            firstCard = card;
+            return;
+        }
+        secondCard = card;
+        checkMatch();
+    });
+}
+
+function flipCard(card: HTMLButtonElement) {
+    card.classList.remove("is-flipped");
+}
+
+function checkMatch() {
+    if (!firstCard || !secondCard) return;
+    const isMatch = firstCard.dataset.card === secondCard.dataset.card;
+    if (isMatch) {
+        firstCard.classList.add("matched");
+        secondCard.classList.add("matched");
+        resetTurn();
+    } else {
+        lockBoard = true;
+        setTimeout(() => {
+            firstCard?.classList.add("is-flipped");
+            secondCard?.classList.add("is-flipped");
+            resetTurn();
+        }, 800);
+    }
+}
+
+function resetTurn() {
+    firstCard = null;
+    secondCard = null;
+    lockBoard = false;
+}
