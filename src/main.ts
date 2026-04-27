@@ -11,6 +11,8 @@ let opponent: string;
 let firstCard: HTMLButtonElement | null = null;
 let secondCard: HTMLButtonElement | null = null;
 let lockBoard = false;
+let blueScore: number = 0;
+let orangeScore: number = 0;
 
 init();
 
@@ -242,12 +244,17 @@ function checkMatch() {
     if (isMatch) {
         firstCard.classList.add("matched");
         secondCard.classList.add("matched");
+        setScore(playerName);
         resetTurn();
     } else {
         lockBoard = true;
         setTimeout(() => {
             firstCard?.classList.add("is-flipped");
             secondCard?.classList.add("is-flipped");
+
+            nextPlayer();
+
+            console.log(playerName);
             resetTurn();
         }, 800);
     }
@@ -257,4 +264,27 @@ function resetTurn() {
     firstCard = null;
     secondCard = null;
     lockBoard = false;
+}
+
+function nextPlayer() {
+    playerName = localStorage.getItem("playerName")!;
+
+    playerName = opponent;
+    localStorage.setItem("playerName", playerName);
+
+    if (playerName == "blue") {
+        opponent = "orange"
+    } else {
+        opponent = "blue"
+    }
+}
+
+function setScore(playerName: string) {
+        if (playerName == "orange") {
+        orangeScore++;
+    } else {
+        blueScore++;
+    }
+     console.log(orangeScore);
+      console.log(blueScore);
 }
