@@ -253,8 +253,6 @@ function checkMatch() {
             secondCard?.classList.add("is-flipped");
 
             nextPlayer();
-
-            console.log(playerName);
             resetTurn();
         }, 800);
     }
@@ -271,7 +269,7 @@ function nextPlayer() {
 
     playerName = opponent;
     localStorage.setItem("playerName", playerName);
-
+    document.documentElement.style.setProperty("--player-name", `url("./assets/img/header/label-${playerName}.svg")`);
     if (playerName == "blue") {
         opponent = "orange"
     } else {
@@ -285,6 +283,13 @@ function setScore(playerName: string) {
     } else {
         blueScore++;
     }
-     console.log(orangeScore);
-      console.log(blueScore);
+     const orangeCounter: HTMLElement | null = document.getElementById("orangeCounter");
+     if (orangeCounter) {
+     orangeCounter.innerHTML = String(orangeScore);
+     };
+     
+      const blueCounter: HTMLElement | null = document.getElementById("blueCounter");
+      if (blueCounter) {
+        blueCounter.innerHTML = String(blueScore);
+      }
 }
