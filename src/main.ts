@@ -1,6 +1,5 @@
-// document.getElementById("h1_hallo")!.innerText = "Memory App";
-
 import './styles/style.scss';
+import { showGameOver, showDraw, setupHomeButton} from "./overlay";
 import { gameTheme, themes, Theme } from './db/games.theme';
 
 const fieldRef = document.getElementById("field");
@@ -61,14 +60,7 @@ document.addEventListener("DOMContentLoaded", initGame);
 function getTheme(themeName: string = "vibes-theme", playerName: string = "blue", cardAmount: number = 16) {
     const theme = themes.find(t => t.theme === themeName);
     if (!theme) return;
-    document.documentElement.style.setProperty("--background-color", theme.background);
-    document.documentElement.style.setProperty("--border-radius", theme.borderRadius);
-    document.documentElement.style.setProperty("--border-color", theme.borderColor);
-    document.documentElement.style.setProperty("--font-size", theme.fontSize);
-    document.documentElement.style.setProperty("--card-back", theme.cardBack);
-    document.documentElement.style.setProperty("--button-color", theme.buttonColor);
-    document.documentElement.style.setProperty("--preview-background", theme.preview);
-    document.documentElement.style.setProperty("--player-name", `url("./assets/img/header/label-${playerName}.svg")`);
+    setThemePropertys(theme, playerName);
     if (playerName == "blue") {
         opponent = "orange"
     } else {
@@ -77,6 +69,17 @@ function getTheme(themeName: string = "vibes-theme", playerName: string = "blue"
     document.documentElement.style.setProperty("--opponent-name", `url("./assets/img/header/label-${opponent}.svg")`);
     renderCards(theme, cardAmount);
 };
+
+function setThemePropertys(theme: Theme, playerName: string) {
+    document.documentElement.style.setProperty("--background-color", theme.background);
+    document.documentElement.style.setProperty("--border-radius", theme.borderRadius);
+    document.documentElement.style.setProperty("--border-color", theme.borderColor);
+    document.documentElement.style.setProperty("--font-size", theme.fontSize);
+    document.documentElement.style.setProperty("--card-back", theme.cardBack);
+    document.documentElement.style.setProperty("--button-color", theme.buttonColor);
+    document.documentElement.style.setProperty("--preview-background", theme.preview);
+    document.documentElement.style.setProperty("--player-name", `url("./assets/img/header/label-${playerName}.svg")`);
+}
 
 function createCardPairs(cards: string[], amount: number): string[] {
     return cards.slice(0, amount).flatMap(c => [c, c]);
@@ -220,15 +223,9 @@ function setupClick() {
     if (!fieldRef) return;
     fieldRef.addEventListener("click", e => {
         const card = (e.target as HTMLElement).closest(".card") as HTMLButtonElement;
-        if (!card) return;
-        if (lockBoard) return;
-        if (card === firstCard) return;
-        if (card.classList.contains("matched")) return;
+        if (!card || lockBoard || card === firstCard || card.classList.contains("matched")) return;
         flipCard(card);
-        if (!firstCard) {
-            firstCard = card;
-            return;
-        }
+        if (!firstCard) return void (firstCard = card);
         secondCard = card;
         checkMatch();
     });
@@ -240,23 +237,31 @@ function flipCard(card: HTMLButtonElement) {
 
 function checkMatch() {
     if (!firstCard || !secondCard) return;
-    const isMatch = firstCard.dataset.card === secondCard.dataset.card;
-    if (isMatch) {
-        firstCard.classList.add("matched");
-        secondCard.classList.add("matched");
-        setScore(playerName);
-        resetTurn();
-    } else {
-        lockBoard = true;
-        setTimeout(() => {
-            firstCard?.classList.add("is-flipped");
-            secondCard?.classList.add("is-flipped");
-
-            nextPlayer();
-            resetTurn();
-        }, 800);
-    }
+    isMatch(firstCard, secondCard) ? handleMatch() : handleMismatch();
 }
+
+function isMatch(a: HTMLButtonElement, b: HTMLButtonElement): boolean {
+    return a.dataset.card === b.dataset.card;
+}
+
+function handleMatch() {
+    firstCard!.classList.add("matched");
+    secondCard!.classList.add("matched");
+    setScore(playerName);
+    resetTurn();
+    checkGameOver();
+}
+
+function handleMismatch() {
+    lockBoard = true;
+    setTimeout(() => {
+        firstCard?.classList.add("is-flipped");
+        secondCard?.classList.add("is-flipped");
+        nextPlayer();
+        resetTurn();
+    }, 800);
+}
+
 
 function resetTurn() {
     firstCard = null;
@@ -266,7 +271,6 @@ function resetTurn() {
 
 function nextPlayer() {
     playerName = localStorage.getItem("playerName")!;
-
     playerName = opponent;
     localStorage.setItem("playerName", playerName);
     document.documentElement.style.setProperty("--player-name", `url("./assets/img/header/label-${playerName}.svg")`);
@@ -278,18 +282,47 @@ function nextPlayer() {
 }
 
 function setScore(playerName: string) {
-        if (playerName == "orange") {
+    if (playerName == "orange") {
         orangeScore++;
     } else {
         blueScore++;
     }
-     const orangeCounter: HTMLElement | null = document.getElementById("orangeCounter");
-     if (orangeCounter) {
-     orangeCounter.innerHTML = String(orangeScore);
-     };
-     
-      const blueCounter: HTMLElement | null = document.getElementById("blueCounter");
-      if (blueCounter) {
+    const orangeCounter: HTMLElement | null = document.getElementById("orangeCounter");
+    if (orangeCounter) {
+        orangeCounter.innerHTML = String(orangeScore);
+    };
+    const blueCounter: HTMLElement | null = document.getElementById("blueCounter");
+    if (blueCounter) {
         blueCounter.innerHTML = String(blueScore);
-      }
+    }
+}
+
+function checkGameOver() {
+    const allCards = document.querySelectorAll(".card");
+    const matchedCards = document.querySelectorAll(".card.matched");
+    if (allCards.length > 0 && allCards.length === matchedCards.length) {
+        if (orangeScore < blueScore) {
+            const winnerName: string = "blue";
+            // const imgSrc = `./assets/img/overlay/${winnerName}.png`;
+            // showGameOver(winnerName, imgSrc);
+            handleShowGameOver(winnerName)
+        } else if (blueScore < orangeScore) {
+            const winnerName: string = "orange";
+            handleShowGameOver(winnerName);
+            // const imgSrc = `./assets/img/overlay/${winnerName}.png`;
+            // showGameOver(winnerName, imgSrc);
+        } else {
+            showDraw();
+        }
+    }
+}
+
+function handleShowGameOver(winnerName: string) {
+    const imgSrc = `./assets/img/overlay/${winnerName}.png`;
+    showGameOver(winnerName, imgSrc);
+    setupHomeButton();
+    // const btn = document.getElementById("home-btn");
+    // if (btn) {
+    //     btn.onclick = () => window.location.href = "index.html";
+    // }
 }

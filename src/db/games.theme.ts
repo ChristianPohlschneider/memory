@@ -76,7 +76,3 @@ export const themes: Theme[] = [
     preview: "./assets/img/games-theme/preview.png",
   }
 ]
-
-function gameThemes($theme: string) {
-
-}
