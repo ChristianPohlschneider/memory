@@ -1,5 +1,5 @@
 import './styles/style.scss';
-import { showGameOver, showDraw, setupHomeButton} from "./overlay";
+import { showGameOver, showDraw, setupOverlayButtons} from "./overlay";
 import { gameTheme, themes, Theme } from './db/games.theme';
 
 const fieldRef = document.getElementById("field");
@@ -282,19 +282,15 @@ function nextPlayer() {
 }
 
 function setScore(playerName: string) {
-    if (playerName == "orange") {
+    if (playerName === "orange") {
         orangeScore++;
     } else {
         blueScore++;
     }
-    const orangeCounter: HTMLElement | null = document.getElementById("orangeCounter");
-    if (orangeCounter) {
-        orangeCounter.innerHTML = String(orangeScore);
-    };
-    const blueCounter: HTMLElement | null = document.getElementById("blueCounter");
-    if (blueCounter) {
-        blueCounter.innerHTML = String(blueScore);
-    }
+    document.querySelectorAll(".header__orangeScore")
+        .forEach(el => el.textContent = String(orangeScore));
+    document.querySelectorAll(".header__blueScore")
+        .forEach(el => el.textContent = String(blueScore));
 }
 
 function checkGameOver() {
@@ -303,15 +299,11 @@ function checkGameOver() {
     if (allCards.length > 0 && allCards.length === matchedCards.length) {
         if (orangeScore < blueScore) {
             const winnerName: string = "blue";
-            // const imgSrc = `./assets/img/overlay/${winnerName}.png`;
-            // showGameOver(winnerName, imgSrc);
             handleShowGameOver(winnerName)
         } else if (blueScore < orangeScore) {
             const winnerName: string = "orange";
             handleShowGameOver(winnerName);
-            // const imgSrc = `./assets/img/overlay/${winnerName}.png`;
-            // showGameOver(winnerName, imgSrc);
-        } else {
+        } else if (blueScore == orangeScore) {
             showDraw();
         }
     }
@@ -320,9 +312,10 @@ function checkGameOver() {
 function handleShowGameOver(winnerName: string) {
     const imgSrc = `./assets/img/overlay/${winnerName}.png`;
     showGameOver(winnerName, imgSrc);
-    setupHomeButton();
-    // const btn = document.getElementById("home-btn");
-    // if (btn) {
-    //     btn.onclick = () => window.location.href = "index.html";
-    // }
+    // setupHomeButton();
+    // setupDrawButton();
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    setupOverlayButtons();
+});

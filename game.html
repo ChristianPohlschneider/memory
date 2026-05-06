@@ -20,6 +20,32 @@
         </div>
     </div>
 
+    <div id="game-over-initOverlay" class="overlay hidden">
+        <div class="overlayContent">
+            <img class="gameOverImg" src="/assets/img/overlay/game-over.png" alt="Game over">
+            <h2>Final Score</h2>
+            <div class="header__player">
+                <div class="header__player--blue"><img src="/assets/img/header/label-blue.svg" alt="blue player"
+                        class="header__playerImg">&nbsp; Blue &nbsp;<div id="blueCounter" class="header__blueScore">0
+                    </div>
+                </div>
+                &nbsp;<div class="header__player--orange"><img src="/assets/img/header/label-orange.svg"
+                        alt="orange player" class="header__playerImg">&nbsp; Orange &nbsp;<div id="orangeCounter"
+                        class="header__orangeScore">0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="draw-overlay" class="overlay hidden">
+        <div class="overlayContent">
+            <h2>It´s a</h2>
+            <img class="draw" src="/assets/img/overlay/draw.png" alt="draw">
+            <img class="scale" src="/assets/img/overlay/scale.png" alt="scale" />
+            <button id="draw-btn" class="header__exitButton">Back to start</button>
+        </div>
+    </div>
+
     <div class="content">
         <header class="header">
             <div class="header__player">
@@ -41,13 +67,7 @@
         </header>
 
         <section id="field" class="field">
-            <!-- <button class="card">
-                <div id="card__inner" class="card__inner">
-                <div class="card__face"></div>
-                <div class="card__face card__face--back"
-                 style="background-image: url('/assets/img/games-theme/${theme}.png')"></div>
-            </div>
-            </button> -->
+
         </section>
     </div>
 
