@@ -25,7 +25,7 @@ html {
 
 body {
   height: 100%;
-  background-color: var(--background-color, white);
+  background-color: rgb(var(--background-color, 255, 255, 255));
   color: white;
   display: flex;
   align-items: center;

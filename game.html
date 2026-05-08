@@ -46,6 +46,16 @@
         </div>
     </div>
 
+    <div id="exit-overlay" class="exitOverlay hidden">
+        <div class="exitOverlayContent">
+            <h2>Are you sure you want to quit the game?</h2>
+            <div class="exitButtons">
+                <button id="game-btn" class="exitButtons__gamebutton">Back to game</button>
+                <button id="exit-btn" class="exitButtons__button">Exit game</button>
+            </div>
+        </div>
+    </div>
+
     <div class="content">
         <header class="header">
             <div class="header__player">
@@ -61,7 +71,7 @@
             <div class="header__currentPlayer">Current player: &nbsp;<div alt="player"
                     class="header__currentPlayer--img"></div>
             </div>
-            <button class="header__exitButton" onclick="window.location.href='index.html'"><img
+            <button id="header-exit-btn" class="header__exitButton"><img
                     src="/assets/img/header/move_item.svg" alt="quit button display"
                     class="header__exitButtonImg"><strong>Exit game</strong></button>
         </header>

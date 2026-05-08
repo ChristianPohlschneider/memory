@@ -46,6 +46,7 @@ export type Theme = {
   borderRadius: string;
   buttonColor: string,
   borderColor: string;
+  headerColor: string;
   fontSize: string;
   cards: string[];
   cardBack: string;
@@ -55,23 +56,25 @@ export type Theme = {
 export const themes: Theme[] = [
     {
     theme: "vibes-theme",
-    background: "#303131",
+    background: "48, 49, 49",
     cards: vibesTheme,
     cardBack: "url('./assets/img/vibes-theme/card-back.png')",
     borderRadius: "12px",
-    buttonColor: "#86E9D633",
-    borderColor: "#4DD5BC",
+    buttonColor: "rgba(134, 233, 214, 0.2)",
+    borderColor: "rgb(77, 213, 188)",
+    headerColor: "rgba(134, 233, 214, 0.2)",
     fontSize: "26px",
     preview: "./assets/img/vibes-theme/preview.png",
   },
   {
     theme: "games-theme",
-    background: "#294F60",
+    background: "41, 79, 96",
     cards: gameTheme,
     cardBack: "url('./assets/img/games-theme/card-back.png')",
     borderRadius: "none",
-    buttonColor: "#ED1B7614",
-    borderColor: "#E71C4F",
+    buttonColor: "rgba(237, 27, 118, 0.08)",
+    borderColor: "rgb(231, 28, 79)",
+    headerColor: "rgb(255, 255, 255)",
     fontSize: "32px",
     preview: "./assets/img/games-theme/preview.png",
   }

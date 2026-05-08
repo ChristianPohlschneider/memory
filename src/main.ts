@@ -1,5 +1,5 @@
 import './styles/style.scss';
-import { showGameOver, showDraw, setupOverlayButtons} from "./overlay";
+import { showGameOver, showDraw, setupOverlayButtons, setupExitButtons} from "./overlay";
 import { gameTheme, themes, Theme } from './db/games.theme';
 
 const fieldRef = document.getElementById("field");
@@ -78,6 +78,7 @@ function setThemePropertys(theme: Theme, playerName: string) {
     document.documentElement.style.setProperty("--card-back", theme.cardBack);
     document.documentElement.style.setProperty("--button-color", theme.buttonColor);
     document.documentElement.style.setProperty("--preview-background", theme.preview);
+    document.documentElement.style.setProperty("--header-background", theme.headerColor);
     document.documentElement.style.setProperty("--player-name", `url("./assets/img/header/label-${playerName}.svg")`);
 }
 
@@ -119,7 +120,6 @@ function shuffleArray(array: any[]) {
     }
 };
 
-const previewBox = document.querySelector(".settings__preview") as HTMLElement;
 const radios = document.querySelectorAll(".customRadio input") as NodeListOf<HTMLInputElement>;
 const DEFAULT_THEME = "vibes-theme";
 const themeLabels: Record<string, string> = {
@@ -318,4 +318,6 @@ function handleShowGameOver(winnerName: string) {
 
 document.addEventListener("DOMContentLoaded", () => {
     setupOverlayButtons();
+    setupExitButtons();
 });
+
