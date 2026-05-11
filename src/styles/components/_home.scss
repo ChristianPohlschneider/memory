@@ -50,4 +50,33 @@
     background-color: #F0EA6E;
     gap: 20px;
     cursor: pointer;
+    transition:
+        transform 0.15s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+
+    &:hover {
+        transform: scale(1.08);
+    }
+
+    &:active {
+        transform: scale(0.96);
+        background-color: #86E9D622;
+        box-shadow:
+            inset 0 0 10px rgba(0, 0, 0, 0.25);
+    }
+}
+
+.controller-small,
+.arrow {
+    transition: transform 0.3s ease;
+}
+
+.playButton:hover .controller-small {
+    transform: rotate(-30deg);
+}
+
+.playButton:hover .arrow {
+    transform: scale(1.25);
 }

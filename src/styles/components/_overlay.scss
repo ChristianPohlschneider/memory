@@ -98,7 +98,7 @@
         height: 62px;
         padding: 0 24px;
         border: solid 1px var(--border-color);
-        border-radius: 0;
+        border-radius: var(--border-radius, 0px);
         cursor: pointer;
         transition:
             transform 0.15s ease,

@@ -1,9 +1,5 @@
 @use '../abstract/mixin' as mx;
 
-
-
-$--columns: 6;
-
 .content {
     display: flex;
     width: calc(100% - 200px);
@@ -13,11 +9,7 @@ $--columns: 6;
 }
 
 .field {
-    // display: grid;
-    // grid-template-columns: repeat($--columns, 1fr);
-    display: flex;
-    width: 545px;
-    // height: 500px;
+    display: grid;
     gap: 10px;
     padding-bottom: 54px;
     flex-wrap: wrap;

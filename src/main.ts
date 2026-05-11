@@ -1,5 +1,5 @@
 import './styles/style.scss';
-import { showGameOver, showDraw, setupOverlayButtons, setupExitButtons} from "./overlay";
+import { showGameOver, showDraw, setupOverlayButtons, setupExitButtons } from "./overlay";
 import { gameTheme, themes, Theme } from './db/games.theme';
 
 const fieldRef = document.getElementById("field");
@@ -19,7 +19,7 @@ function init() {
     setupClick();
 };
 
-const startBtn = document.getElementById("startBtn");
+const startBtn = document.getElementById("startBtn") as HTMLButtonElement;;
 startBtn?.addEventListener("click", startGame);
 
 function startGame() {
@@ -79,7 +79,10 @@ function setThemePropertys(theme: Theme, playerName: string) {
     document.documentElement.style.setProperty("--button-color", theme.buttonColor);
     document.documentElement.style.setProperty("--preview-background", theme.preview);
     document.documentElement.style.setProperty("--header-background", theme.headerColor);
-    document.documentElement.style.setProperty("--player-name", `url("./assets/img/header/label-${playerName}.svg")`);
+    document.documentElement.style.setProperty("--player-background", theme.playerColor);
+    document.documentElement.style.setProperty("--player-name", `url("./assets/img/header/${theme.theme}/label-${playerName}.svg")`);
+    document.documentElement.style.setProperty("--player-orange", `url("./assets/img/header/${theme.theme}/label-orange.svg")`);
+    document.documentElement.style.setProperty("--player-blue", `url("./assets/img/header/${theme.theme}/label-blue.svg")`);
 }
 
 function createCardPairs(cards: string[], amount: number): string[] {
@@ -108,6 +111,7 @@ function renderToField(elements: HTMLElement[]) {
 };
 
 function renderCards(theme: Theme, cardAmount: number = 16) {
+    setupBoardLayout(cardAmount);
     const cards = createCardPairs(theme.cards, cardAmount / 2);
     shuffleArray(cards);
     renderToField(cards.map(c => createCardElement(theme, c)));
@@ -139,6 +143,15 @@ function getActiveTheme() {
     return activeInput?.value ?? DEFAULT_THEME;
 }
 
+function setupBoardLayout(cardAmount: number) {
+    if (!fieldRef) return;
+    let columns = 4;
+    if (cardAmount === 24 || cardAmount === 36) {
+        columns = 6;
+    }
+    fieldRef.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+}
+
 function applyPreview(themeName: string) {
     const previewBox = document.querySelector(".settings__preview");
     const theme = themes.find(t => t.theme === themeName);
@@ -153,7 +166,6 @@ radios.forEach((input) => {
 });
 
 applyPreview(DEFAULT_THEME);
-
 
 document.querySelectorAll(".customRadio").forEach((label) => {
     const input = label.querySelector("input") as HTMLInputElement;
@@ -216,7 +228,15 @@ function updateSettingsBoard() {
     updatePlayerText();
     updateBoardSizeText();
     updateLines();
+    updateStartButton();
 };
+
+function updateStartButton() {
+    const themeSelected = document.querySelector("input[name='theme']:checked");
+    const playerSelected = document.querySelector("input[name='player']:checked");
+    const sizeSelected = document.querySelector("input[name='size']:checked");
+    startBtn.disabled = !(themeSelected && playerSelected && sizeSelected);
+}
 
 function setupClick() {
     const fieldRef = document.getElementById("field");
@@ -245,8 +265,8 @@ function isMatch(a: HTMLButtonElement, b: HTMLButtonElement): boolean {
 }
 
 function handleMatch() {
-    firstCard!.classList.add("matched");
-    secondCard!.classList.add("matched");
+    firstCard!.classList.add("matched", playerName);
+    secondCard!.classList.add("matched", playerName);
     setScore(playerName);
     resetTurn();
     checkGameOver();
@@ -261,7 +281,6 @@ function handleMismatch() {
         resetTurn();
     }, 800);
 }
-
 
 function resetTurn() {
     firstCard = null;
@@ -312,8 +331,6 @@ function checkGameOver() {
 function handleShowGameOver(winnerName: string) {
     const imgSrc = `./assets/img/overlay/${winnerName}.png`;
     showGameOver(winnerName, imgSrc);
-    // setupHomeButton();
-    // setupDrawButton();
 }
 
 document.addEventListener("DOMContentLoaded", () => {

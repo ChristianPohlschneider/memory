@@ -1,19 +1,13 @@
 @use '../abstract/mixin' as mx;
 
-
 .card {
     height: 80px;
     width: 80px;
     padding: 0;
     border: none;
-    border-radius: 0;
+    border-radius: var(--border-radius, 0px);
     background-color: rgba(var(--background-color));
-
-    @include mx.respond(zero, s) {
-        // height: 100px;
-    }
-
-
+    cursor: pointer;
 
     &__inner {
         position: relative;
@@ -21,7 +15,7 @@
         height: 100%;
         transform-style: preserve-3d;
         transition: all 300ms ease-in-out;
-        border-radius: 0;
+        border-radius: var(--border-radius, 0px);
         background-image: var(--card-back);
         background-position: center;
 
@@ -31,7 +25,7 @@
     &__face {
         position: absolute;
         inset: 0;
-        border-radius: 0;
+        border-radius: var(--border-radius, 0px);
         backface-visibility: hidden;
 
         &--back {
@@ -48,6 +42,15 @@
 
     &.is-flipped .card__inner {
         transform: rotateY(180deg);
-
     }
+}
+
+.card.matched.blue {
+    outline: 4px solid #4da6ff;
+    animation: matchedGlow 2s linear infinite;
+}
+
+.card.matched.orange {
+    outline: 4px solid #ff9d42;
+    animation: matchedGlow 2s linear infinite;
 }

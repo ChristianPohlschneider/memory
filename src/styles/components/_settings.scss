@@ -44,10 +44,37 @@ body.setting {
     }
 
     &__board {
+        background-color: #F6F6F6;
+        padding: 14px 20px 14px 20px;
+        font-size: 18px;
         @include mx.flex-center(row);
         gap: 16px;
     }
 
+    &__gameTheme {
+        width: 155px;
+        text-align: center;
+    }
+
+    &__player {
+        width: 65px;
+        text-align: center;
+    }
+
+    &__size {
+        width: 95px;
+        text-align: center;
+    }
+
+    &__linePlayer {
+        width: 27px;
+        height: 56px;
+    }
+
+    &__lineSize {
+        width: 27px;
+        height: 56px;
+    }
 }
 
 .titleUnderline {
@@ -96,16 +123,6 @@ body.setting {
     display: none;
 }
 
-// .customRadio__circle {
-//     width: 20px;
-//     height: 20px;
-//     border: 2px solid #303131;
-//     border-radius: 50%;
-//     display: inline-block;
-//     position: relative;
-// }
-
-/* innerer Punkt beim Klick */
 .customRadio input:checked+.customRadio__circle::after {
     content: "";
     width: 10px;
@@ -130,12 +147,6 @@ body.setting {
     opacity: 1;
 }
 
-.settings__board {
-    background-color: #F6F6F6;
-    padding: 14px 20px 14px 20px;
-    font-size: 18px;
-}
-
 .startButton {
     display: flex;
     justify-content: center;
@@ -148,9 +159,42 @@ body.setting {
     background-color: #F0EA6E;
     gap: 10px;
     cursor: pointer;
+    transition:
+        transform 0.15s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
 
     &__display {
         height: 22px;
         width: 28px;
     }
+
+    &:hover {
+        transform: scale(1.08);
+    }
+
+    &:active {
+        transform: scale(0.96);
+        background-color: #86E9D622;
+        box-shadow:
+            inset 0 0 10px rgba(0, 0, 0, 0.25);
+    }
+}
+
+.startButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.startButton__display {
+    transition: transform 0.3s ease;
+}
+
+.startButton:not(:disabled):hover {
+    transform: scale(1.08);
+}
+
+.startButton:not(:disabled):hover .startButton__display {
+    transform: rotate(-20deg) scale(1.15);
 }
