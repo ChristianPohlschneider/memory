@@ -25,6 +25,10 @@ function init() {
 const startBtn = document.getElementById("startBtn") as HTMLButtonElement;;
 startBtn?.addEventListener("click", startGame);
 
+/**
+ * Starts the game by reading the selected settings,
+ * saving them to localStorage, and opening the game page.
+ */
 function startGame() {
     const selectedTheme = document.querySelector('input[name="theme"]:checked');
     if (!(selectedTheme instanceof HTMLInputElement)) return;
@@ -39,12 +43,23 @@ function startGame() {
     window.location.href = "game.html";
 };
 
+/**
+ * Saves the selected game settings to localStorage.
+ *
+ * @param themeName - The selected game theme.
+ * @param playerName - The selected player name.
+ * @param cardAmount - The selected number of cards.
+ */
 function setLocalStorage(themeName: string, playerName: string, cardAmount: number) {
     localStorage.setItem("themeName", themeName);
     localStorage.setItem("playerName", playerName);
     localStorage.setItem("cardAmount", cardAmount.toString());
 };
 
+/**
+* Initializes the game settings from localStorage.
+ * Falls back to default values if no saved settings exist.
+ */
 function initGame() {
     if (!localStorage.getItem("themeName") || !localStorage.getItem("cardAmount") || !localStorage.getItem("playerName")) {
         themeName = "vibes-theme";
@@ -60,6 +75,14 @@ function initGame() {
 
 document.addEventListener("DOMContentLoaded", initGame);
 
+/**
+ * Applies the selected theme, sets player/opponent colors,
+ * updates CSS variables, and renders the game cards.
+ *
+ * @param themeName - Name of the selected theme (default: "vibes-theme").
+ * @param playerName - Name/color of the player (default: "blue").
+ * @param cardAmount - Number of cards to render (default: 16).
+ */
 function getTheme(themeName: string = "vibes-theme", playerName: string = "blue", cardAmount: number = 16) {
     const theme = themes.find(t => t.theme === themeName);
     if (!theme) return;
@@ -73,6 +96,12 @@ function getTheme(themeName: string = "vibes-theme", playerName: string = "blue"
     renderCards(theme, cardAmount);
 };
 
+/**
+ * Applies theme-related CSS variables to the document root.
+ *
+ * @param theme - Theme configuration object containing colors, images and styling values.
+ * @param playerName - Selected player name used for player-specific assets.
+ */
 function setThemePropertys(theme: Theme, playerName: string) {
     document.documentElement.style.setProperty("--background-color", theme.background);
     document.documentElement.style.setProperty("--border-radius", theme.borderRadius);
@@ -89,10 +118,24 @@ function setThemePropertys(theme: Theme, playerName: string) {
     document.documentElement.style.setProperty("--confetti", theme.confetti);
 }
 
+/**
+ * Creates shuffled card pairs for the memory game.
+ *
+ * @param cards - Array of available card identifiers.
+ * @param amount - Number of unique cards to use (each will be duplicated to form pairs).
+ * @returns Array containing paired cards.
+ */
 function createCardPairs(cards: string[], amount: number): string[] {
     return cards.slice(0, amount).flatMap(c => [c, c]);
 };
 
+/**
+ * Creates a DOM element for a memory card.
+ *
+ * @param theme - Current theme configuration used for image paths.
+ * @param card - Card identifier used to load the correct image.
+ * @returns The generated HTML button element representing a card.
+ */
 function createCardElement(theme: Theme, card: string): HTMLElement {
     const el = document.createElement("button");
     el.className = "card is-flipped";
@@ -108,12 +151,26 @@ function createCardElement(theme: Theme, card: string): HTMLElement {
     return el;
 };
 
+/**
+ * Renders a list of elements into the game field.
+ *
+ * @param elements - Array of HTML elements to append to the field.
+ */
 function renderToField(elements: HTMLElement[]) {
     if (!fieldRef) return;
     fieldRef.innerHTML = "";
     elements.forEach(el => fieldRef.appendChild(el));
 };
 
+/**
+ * Renders the complete card set for the game.
+ *
+ * Creates card pairs, shuffles them, generates DOM elements,
+ * and renders them into the game field.
+ *
+ * @param theme - Current theme configuration used for card assets.
+ * @param cardAmount - Total number of cards to render (default: 16).
+ */
 function renderCards(theme: Theme, cardAmount: number = 16) {
     setupBoardLayout(cardAmount);
     const cards = createCardPairs(theme.cards, cardAmount / 2);
