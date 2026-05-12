@@ -15,6 +15,9 @@ let orangeScore: number = 0;
 
 init();
 
+/**
+ * Initializes the application and sets up click events.
+ */
 function init() {
     setupClick();
 };
@@ -83,6 +86,7 @@ function setThemePropertys(theme: Theme, playerName: string) {
     document.documentElement.style.setProperty("--player-name", `url("./assets/img/header/${theme.theme}/label-${playerName}.svg")`);
     document.documentElement.style.setProperty("--player-orange", `url("./assets/img/header/${theme.theme}/label-orange.svg")`);
     document.documentElement.style.setProperty("--player-blue", `url("./assets/img/header/${theme.theme}/label-blue.svg")`);
+    document.documentElement.style.setProperty("--confetti", theme.confetti);
 }
 
 function createCardPairs(cards: string[], amount: number): string[] {
@@ -292,7 +296,7 @@ function nextPlayer() {
     playerName = localStorage.getItem("playerName")!;
     playerName = opponent;
     localStorage.setItem("playerName", playerName);
-    document.documentElement.style.setProperty("--player-name", `url("./assets/img/header/label-${playerName}.svg")`);
+    document.documentElement.style.setProperty("--player-name", `url("./assets/img/header/${themeName}/label-${playerName}.svg")`);
     if (playerName == "blue") {
         opponent = "orange"
     } else {
@@ -323,14 +327,14 @@ function checkGameOver() {
             const winnerName: string = "orange";
             handleShowGameOver(winnerName);
         } else if (blueScore == orangeScore) {
-            showDraw();
+            showDraw(themeName);
         }
     }
 }
 
 function handleShowGameOver(winnerName: string) {
-    const imgSrc = `./assets/img/overlay/${winnerName}.png`;
-    showGameOver(winnerName, imgSrc);
+    const imgSrc = `./assets/img/overlay/${themeName}-${winnerName}.png`;
+    showGameOver(winnerName, imgSrc, themeName);
 }
 
 document.addEventListener("DOMContentLoaded", () => {

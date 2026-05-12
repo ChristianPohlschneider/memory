@@ -1,10 +1,15 @@
-function prepareGameOver(winnerName: string, imgSrc: string) {
+function prepareGameOver(winnerName: string, imgSrc: string, themeName: string) {
     const text = document.getElementById("winner-text");
     const img = document.getElementById("winner-img") as HTMLImageElement;
     if (!text || !img) return;
     text.textContent = `${winnerName.toUpperCase()} Player`;
     text.classList.add(`header__player--${winnerName}`);
+    text.classList.add(`font60`);
     img.src = imgSrc;
+    const imgGameOver = document.querySelector(".gameOverImg");
+    if (imgGameOver instanceof HTMLImageElement) {
+        imgGameOver.src = `./assets/img/overlay/game-over-${themeName}.png`;
+    }
 }
 
 function showGameOverOverlay() {
@@ -20,8 +25,8 @@ function showGameOverOverlay() {
     }, 5000);
 }
 
-export function showGameOver(winnerName: string, imgSrc: string) {
-    prepareGameOver(winnerName, imgSrc);
+export function showGameOver(winnerName: string, imgSrc: string, themeName: string) {
+    prepareGameOver(winnerName, imgSrc, themeName);
     showGameOverOverlay();
 }
 
@@ -35,12 +40,18 @@ export function setupOverlayButtons() {
     });
 }
 
-export function showDraw() {
+export function showDraw(themeName: string) {
     const overlay = document.getElementById("draw-overlay");
     if (!overlay) return;
     setTimeout(() => {
         overlay.classList.remove("hidden");
     }, 1000);
+    const imgDraw = document.querySelector(".draw");
+    const imgScale = document.querySelector(".scale");
+    if (imgDraw instanceof HTMLImageElement && imgScale instanceof HTMLImageElement) {
+        imgDraw.src = `./assets/img/overlay/draw-${themeName}.png`;
+        imgScale.src = `./assets/img/overlay/scale-${themeName}.png`;
+    }
 }
 
 export function setupExitButtons() {

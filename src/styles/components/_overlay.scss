@@ -26,6 +26,7 @@
 }
 
 .confetti {
+    display: var(--confetti);
     width: 80%;
 }
 
@@ -145,6 +146,10 @@
                 inset 0 0 12px rgba(0, 0, 0, 0.3);
         }
     }
+}
+
+.font60 {
+    font-size: 60px;
 }
 
 .hidden {
