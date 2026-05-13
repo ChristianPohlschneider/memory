@@ -116,7 +116,7 @@ export function nextPlayer(playerName: string) {
     setOpponent(playerName);
     playerName = opponent;
     localStorage.setItem("playerName", playerName);
-    document.documentElement.style.setProperty("--player-name", `url("/assets/img/header/${themeName}/label-${playerName}.svg")`);
+    document.documentElement.style.setProperty("--player-name", `url("../assets/img/header/${themeName}/label-${playerName}.svg")`);
     if (playerName == "blue") {
         opponent = "orange"
     } else {
@@ -184,6 +184,6 @@ export function checkGameOver() {
  * @returns {void}
  */
 export function handleShowGameOver(winnerName: string) {
-    const imgSrc = `/assets/img/overlay/${themeName}-${winnerName}.png`;
+    const imgSrc = `../assets/img/overlay/${themeName}-${winnerName}.png`;
     showGameOver(winnerName, imgSrc, themeName);
 };
