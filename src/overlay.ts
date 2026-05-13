@@ -1,3 +1,11 @@
+/**
+ * Prepares the game-over UI by setting winner text, styles, and images.
+ *
+ * @param {string} winnerName - The name of the winning player.
+ * @param {string} imgSrc - The image source for the winner display.
+ * @param {string} themeName - The currently active theme name.
+ * @returns {void}
+ */
 function prepareGameOver(winnerName: string, imgSrc: string, themeName: string) {
     const text = document.getElementById("winner-text");
     const img = document.getElementById("winner-img") as HTMLImageElement;
@@ -12,6 +20,11 @@ function prepareGameOver(winnerName: string, imgSrc: string, themeName: string) 
     }
 }
 
+/**
+ * Controls the visibility of the game-over overlays.
+ *
+ * @returns {void}
+ */
 function showGameOverOverlay() {
     const overlayFinal = document.getElementById("game-over-overlay");
     const overlayInit = document.getElementById("game-over-initOverlay");
@@ -25,11 +38,24 @@ function showGameOverOverlay() {
     }, 5000);
 }
 
+/**
+ * Displays the game-over screen by preparing the UI and showing the overlay.
+ *
+ * @param {string} winnerName - The name of the winning player.
+ * @param {string} imgSrc - The image source used for the winner display.
+ * @param {string} themeName - The currently active theme name.
+ * @returns {void}
+ */
 export function showGameOver(winnerName: string, imgSrc: string, themeName: string) {
     prepareGameOver(winnerName, imgSrc, themeName);
     showGameOverOverlay();
 }
 
+/**
+ * Sets up click handlers for overlay buttons.
+ *
+ * @returns {void}
+ */
 export function setupOverlayButtons() {
     document.addEventListener("click", (e) => {
         const target = e.target as HTMLElement;
@@ -40,6 +66,12 @@ export function setupOverlayButtons() {
     });
 }
 
+/**
+ * Displays the draw overlay and sets themed draw images.
+ *
+ * @param {string} themeName - The currently active theme name.
+ * @returns {void}
+ */
 export function showDraw(themeName: string) {
     const overlay = document.getElementById("draw-overlay");
     if (!overlay) return;
@@ -54,6 +86,11 @@ export function showDraw(themeName: string) {
     }
 }
 
+/**
+ * Sets up the exit overlay button interactions.
+ *
+ * @returns {void}
+ */
 export function setupExitButtons() {
     const exitOverlay = document.getElementById('exit-overlay');
     const gameBtn = document.getElementById('game-btn');
