@@ -16,7 +16,7 @@ function prepareGameOver(winnerName: string, imgSrc: string, themeName: string) 
     img.src = imgSrc;
     const imgGameOver = document.querySelector(".gameOverImg");
     if (imgGameOver instanceof HTMLImageElement) {
-        imgGameOver.src = `./assets/img/overlay/game-over-${themeName}.png`;
+        imgGameOver.src = `/assets/img/overlay/game-over-${themeName}.png`;
     }
 }
 
@@ -81,8 +81,8 @@ export function showDraw(themeName: string) {
     const imgDraw = document.querySelector(".draw");
     const imgScale = document.querySelector(".scale");
     if (imgDraw instanceof HTMLImageElement && imgScale instanceof HTMLImageElement) {
-        imgDraw.src = `./assets/img/overlay/draw-${themeName}.png`;
-        imgScale.src = `./assets/img/overlay/scale-${themeName}.png`;
+        imgDraw.src = `/assets/img/overlay/draw-${themeName}.png`;
+        imgScale.src = `/assets/img/overlay/scale-${themeName}.png`;
     }
 }
 

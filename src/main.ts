@@ -89,7 +89,7 @@ function getTheme(themeName: string = "vibes-theme", playerName: string = "blue"
     } else {
         opponent = "blue"
     }
-    document.documentElement.style.setProperty("--opponent-name", `url("./assets/img/header/label-${opponent}.svg")`);
+    document.documentElement.style.setProperty("--opponent-name", `url("/assets/img/header/label-${opponent}.svg")`);
     renderCards(theme, cardAmount);
 };
 
@@ -109,9 +109,9 @@ function setThemePropertys(theme: Theme, playerName: string) {
     document.documentElement.style.setProperty("--preview-background", theme.preview);
     document.documentElement.style.setProperty("--header-background", theme.headerColor);
     document.documentElement.style.setProperty("--player-background", theme.playerColor);
-    document.documentElement.style.setProperty("--player-name", `url("./assets/img/header/${theme.theme}/label-${playerName}.svg")`);
-    document.documentElement.style.setProperty("--player-orange", `url("./assets/img/header/${theme.theme}/label-orange.svg")`);
-    document.documentElement.style.setProperty("--player-blue", `url("./assets/img/header/${theme.theme}/label-blue.svg")`);
+    document.documentElement.style.setProperty("--player-name", `url("/assets/img/header/${theme.theme}/label-${playerName}.svg")`);
+    document.documentElement.style.setProperty("--player-orange", `url("/assets/img/header/${theme.theme}/label-orange.svg")`);
+    document.documentElement.style.setProperty("--player-blue", `url("/assets/img/header/${theme.theme}/label-blue.svg")`);
     document.documentElement.style.setProperty("--confetti", theme.confetti);
 }
 
@@ -141,7 +141,7 @@ function createCardElement(theme: Theme, card: string): HTMLElement {
         <div class="card__inner">
             <div class="card__face"></div>
             <div class="card__face card__face--back"
-                style="background-image: url('./assets/img/${theme.theme}/${card}.png')">
+                style="background-image: url('/assets/img/${theme.theme}/${card}.png')">
             </div>
         </div>
     `;
@@ -196,8 +196,8 @@ const sizeLabels: Record<string, string> = {
     "24": "24 cards",
     "36": "36 cards",
 };
-const DEFAULT_LINE = "./assets/img/settings/Line-6.svg";
-const ACTIVE_LINE = "./assets/img/settings/Line-5.svg";
+const DEFAULT_LINE = "/assets/img/settings/Line-6.svg";
+const ACTIVE_LINE = "/assets/img/settings/Line-5.svg";
 
 /**
  * Returns the currently selected theme value.
