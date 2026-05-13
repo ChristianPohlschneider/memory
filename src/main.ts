@@ -1,17 +1,14 @@
 import './styles/style.scss';
-import { showGameOver, showDraw, setupOverlayButtons, setupExitButtons } from "./overlay";
+import { showGameOver, showDraw, setupOverlayButtons, setupExitButtons} from "./overlay";
+
 import { gameTheme, themes, Theme } from './db/games.theme';
+import { setupClick} from './game';
 
 const fieldRef = document.getElementById("field");
 let themeName: string;
 let playerName: string;
 let cardAmount: number;
 let opponent: string;
-let firstCard: HTMLButtonElement | null = null;
-let secondCard: HTMLButtonElement | null = null;
-let lockBoard = false;
-let blueScore: number = 0;
-let orangeScore: number = 0;
 
 init();
 
@@ -58,8 +55,8 @@ function setLocalStorage(themeName: string, playerName: string, cardAmount: numb
 
 /**
 * Initializes the game settings from localStorage.
- * Falls back to default values if no saved settings exist.
- */
+* Falls back to default values if no saved settings exist.
+*/
 function initGame() {
     if (!localStorage.getItem("themeName") || !localStorage.getItem("cardAmount") || !localStorage.getItem("playerName")) {
         themeName = "vibes-theme";
@@ -165,9 +162,6 @@ function renderToField(elements: HTMLElement[]) {
 /**
  * Renders the complete card set for the game.
  *
- * Creates card pairs, shuffles them, generates DOM elements,
- * and renders them into the game field.
- *
  * @param theme - Current theme configuration used for card assets.
  * @param cardAmount - Total number of cards to render (default: 16).
  */
@@ -178,6 +172,12 @@ function renderCards(theme: Theme, cardAmount: number = 16) {
     renderToField(cards.map(c => createCardElement(theme, c)));
 };
 
+/**
+ * Randomly shuffles the elements of an array using the Fisher-Yates algorithm.
+ *
+ * @param {any[]} array - The array to shuffle.
+ * @returns {void}
+ */
 function shuffleArray(array: any[]) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -199,11 +199,23 @@ const sizeLabels: Record<string, string> = {
 const DEFAULT_LINE = "./assets/img/settings/Line-6.svg";
 const ACTIVE_LINE = "./assets/img/settings/Line-5.svg";
 
+/**
+ * Returns the currently selected theme value.
+ *
+ * @returns {string} The active theme value or the default theme if none is selected.
+ */
 function getActiveTheme() {
     const activeInput = document.querySelector(".customRadio input:checked") as HTMLInputElement;
     return activeInput?.value ?? DEFAULT_THEME;
 }
 
+/**
+ * Configures the board layout by adjusting the number of grid columns
+ * based on the total amount of cards.
+ *
+ * @param {number} cardAmount - The total number of cards on the board.
+ * @returns {void}
+ */
 function setupBoardLayout(cardAmount: number) {
     if (!fieldRef) return;
     let columns = 4;
@@ -213,6 +225,12 @@ function setupBoardLayout(cardAmount: number) {
     fieldRef.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
 }
 
+/**
+ * Applies the preview image for the selected theme.
+ *
+ * @param {string} themeName - The name of the theme to preview.
+ * @returns {void}
+ */
 function applyPreview(themeName: string) {
     const previewBox = document.querySelector(".settings__preview");
     const theme = themes.find(t => t.theme === themeName);
@@ -254,12 +272,23 @@ radios.forEach((input) => {
     });
 });
 
+/**
+ * Updates the displayed theme label text.
+ *
+ * @param {string} activeTheme - The currently active theme name.
+ * @returns {void}
+ */
 function updateThemeText(activeTheme: string) {
     const el = document.querySelector(".settings__gameTheme");
     const label = themeLabels[activeTheme] ?? "Game theme";
     if (el) el.textContent = label;
 };
 
+/**
+ * Updates the displayed player text based on the selected player option.
+ *
+ * @returns {void}
+ */
 function updatePlayerText() {
     const el = document.querySelector(".settings__player");
     const input = document.querySelector("input[name='player']:checked") as HTMLInputElement | null;
@@ -267,6 +296,11 @@ function updatePlayerText() {
     el.textContent = input ? input.value : "Player";
 };
 
+/**
+ * Updates the displayed board size text based on the selected size option.
+ *
+ * @returns {void}
+ */
 function updateBoardSizeText() {
     const el = document.querySelector(".settings__size");
     const input = document.querySelector("input[name='size']:checked") as HTMLInputElement | null;
@@ -274,6 +308,12 @@ function updateBoardSizeText() {
     el.textContent = input ? (sizeLabels[input.value] ?? "Board size") : "Board size";
 };
 
+/**
+ * Updates the line indicators based on the selected player
+ * and board size options.
+ *
+ * @returns {void}
+ */
 function updateLines() {
     const playerInput = document.querySelector("input[name='player']:checked") as HTMLInputElement | null;
     const sizeInput = document.querySelector("input[name='size']:checked") as HTMLInputElement | null;
@@ -283,6 +323,12 @@ function updateLines() {
     if (lineSize) lineSize.src = sizeInput ? ACTIVE_LINE : DEFAULT_LINE;
 };
 
+/**
+ * Updates the entire settings board UI by refreshing theme text,
+ * player text, board size text, line indicators, and start button state.
+ *
+ * @returns {void}
+ */
 function updateSettingsBoard() {
     const activeTheme = getActiveTheme();
     updateThemeText(activeTheme);
@@ -292,106 +338,17 @@ function updateSettingsBoard() {
     updateStartButton();
 };
 
+/**
+ * Enables or disables the start button depending on whether
+ * all required settings (theme, player, and size) are selected.
+ *
+ * @returns {void}
+ */
 function updateStartButton() {
     const themeSelected = document.querySelector("input[name='theme']:checked");
     const playerSelected = document.querySelector("input[name='player']:checked");
     const sizeSelected = document.querySelector("input[name='size']:checked");
     startBtn.disabled = !(themeSelected && playerSelected && sizeSelected);
-}
-
-function setupClick() {
-    const fieldRef = document.getElementById("field");
-    if (!fieldRef) return;
-    fieldRef.addEventListener("click", e => {
-        const card = (e.target as HTMLElement).closest(".card") as HTMLButtonElement;
-        if (!card || lockBoard || card === firstCard || card.classList.contains("matched")) return;
-        flipCard(card);
-        if (!firstCard) return void (firstCard = card);
-        secondCard = card;
-        checkMatch();
-    });
-}
-
-function flipCard(card: HTMLButtonElement) {
-    card.classList.remove("is-flipped");
-}
-
-function checkMatch() {
-    if (!firstCard || !secondCard) return;
-    isMatch(firstCard, secondCard) ? handleMatch() : handleMismatch();
-}
-
-function isMatch(a: HTMLButtonElement, b: HTMLButtonElement): boolean {
-    return a.dataset.card === b.dataset.card;
-}
-
-function handleMatch() {
-    firstCard!.classList.add("matched", playerName);
-    secondCard!.classList.add("matched", playerName);
-    setScore(playerName);
-    resetTurn();
-    checkGameOver();
-}
-
-function handleMismatch() {
-    lockBoard = true;
-    setTimeout(() => {
-        firstCard?.classList.add("is-flipped");
-        secondCard?.classList.add("is-flipped");
-        nextPlayer();
-        resetTurn();
-    }, 800);
-}
-
-function resetTurn() {
-    firstCard = null;
-    secondCard = null;
-    lockBoard = false;
-}
-
-function nextPlayer() {
-    playerName = localStorage.getItem("playerName")!;
-    playerName = opponent;
-    localStorage.setItem("playerName", playerName);
-    document.documentElement.style.setProperty("--player-name", `url("./assets/img/header/${themeName}/label-${playerName}.svg")`);
-    if (playerName == "blue") {
-        opponent = "orange"
-    } else {
-        opponent = "blue"
-    }
-}
-
-function setScore(playerName: string) {
-    if (playerName === "orange") {
-        orangeScore++;
-    } else {
-        blueScore++;
-    }
-    document.querySelectorAll(".header__orangeScore")
-        .forEach(el => el.textContent = String(orangeScore));
-    document.querySelectorAll(".header__blueScore")
-        .forEach(el => el.textContent = String(blueScore));
-}
-
-function checkGameOver() {
-    const allCards = document.querySelectorAll(".card");
-    const matchedCards = document.querySelectorAll(".card.matched");
-    if (allCards.length > 0 && allCards.length === matchedCards.length) {
-        if (orangeScore < blueScore) {
-            const winnerName: string = "blue";
-            handleShowGameOver(winnerName)
-        } else if (blueScore < orangeScore) {
-            const winnerName: string = "orange";
-            handleShowGameOver(winnerName);
-        } else if (blueScore == orangeScore) {
-            showDraw(themeName);
-        }
-    }
-}
-
-function handleShowGameOver(winnerName: string) {
-    const imgSrc = `./assets/img/overlay/${themeName}-${winnerName}.png`;
-    showGameOver(winnerName, imgSrc, themeName);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
