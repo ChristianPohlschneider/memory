@@ -184,6 +184,6 @@ export function checkGameOver() {
  * @returns {void}
  */
 export function handleShowGameOver(winnerName: string) {
-    const imgSrc = `../assets/img/overlay/${themeName}-${winnerName}.png`;
+    const imgSrc = `./assets/img/overlay/${themeName}-${winnerName}.png`;
     showGameOver(winnerName, imgSrc, themeName);
 };
