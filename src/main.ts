@@ -141,7 +141,7 @@ function createCardElement(theme: Theme, card: string): HTMLElement {
         <div class="card__inner">
             <div class="card__face"></div>
             <div class="card__face card__face--back"
-                style="background-image: url('../assets/img/${theme.theme}/${card}.png')">
+                style="background-image: url('/assets/img/${theme.theme}/${card}.png')">
             </div>
         </div>
     `;
@@ -196,8 +196,8 @@ const sizeLabels: Record<string, string> = {
     "24": "24 cards",
     "36": "36 cards",
 };
-const DEFAULT_LINE = "../assets/img/settings/Line-6.svg";
-const ACTIVE_LINE = "../assets/img/settings/Line-5.svg";
+const DEFAULT_LINE = "/assets/img/settings/Line-6.svg";
+const ACTIVE_LINE = "/assets/img/settings/Line-5.svg";
 
 /**
  * Returns the currently selected theme value.
