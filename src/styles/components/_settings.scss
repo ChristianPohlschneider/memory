@@ -9,7 +9,6 @@ body.setting {
     height: 100%;
     width: 100%;
     @include mx.flex-center(column);
-    justify-content: flex-start;
     align-items: flex-start;
     padding: 0px 150px 0px 150px;
 
@@ -78,9 +77,9 @@ body.setting {
 }
 
 .titleUnderline {
-    position: absolute;
-    top: 110px;
-    left: 125px;
+    position: relative;
+    top: -10px;
+    left: -20px;
 }
 
 .settingTitle {

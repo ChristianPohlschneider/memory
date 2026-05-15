@@ -19,17 +19,22 @@ $theme: "vibes-theme";
 }
 
 html {
+  display: flex;
+  justify-content: center;
   font-family: 'Red Rose', serif;
   height: 100%;
 }
 
 body {
+  width: 100%;
+  max-width: 1440px;
   height: 100%;
   background-color: rgb(var(--background-color, 255, 255, 255));
   color: white;
   display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: center;
   overflow-x: hidden;
 }
 
